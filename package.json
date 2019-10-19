@@ -1,0 +1,11 @@
+{
+  "name": "modulo02-gobarber",
+  "version": "1.0.0",
+  "description": "App Gobarber - Bootcamp GoStack 9 da Rocketseat",
+  "main": "index.js",
+  "author": "Tiago Dias",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
