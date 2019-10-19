@@ -1,5 +1,5 @@
 const express = require('express');
-const routes = require('./routes');
+const routes = require('./routes'); // importando as rostas de outro arquivo
 
 class App {
 
@@ -31,7 +31,3 @@ class App {
 
 
 module.exports = new App().server;
-
-
-
-//const express = require('express');
