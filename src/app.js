@@ -12,7 +12,6 @@ const routes = require('./routes'); // importando as rostas de outro arquivo
 import express from 'express';
 import routes from './routes';
 
-
 class App {
   constructor() {
     this.server = express();
@@ -21,7 +20,6 @@ class App {
     this.middlewares();
     this.routes();
   }
-
 
   middlewares() {
     this.server.use(express.json());
@@ -32,7 +30,6 @@ class App {
     this.server.use(routes);
   }
 }
-
 
 // module.exports = new App().server;
 
