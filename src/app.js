@@ -11,6 +11,7 @@ const routes = require('./routes'); // importando as rostas de outro arquivo
 */
 import express from 'express';
 import routes from './routes';
+import './database';
 
 class App {
   constructor() {

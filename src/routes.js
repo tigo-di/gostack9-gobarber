@@ -1,10 +1,21 @@
 // const { Router } = require("express"); // importando apenas a parte de roteamento
 
-import { Router } from 'express'; // possível com Sucrase
+// possível com Sucrase
+import { Router } from 'express';
+
+// possível com Sucrase
+import User from './app/models/User';
 
 const routes = new Router();
 
-routes.get('/', (req, res) => res.json({ message: 'Hello World!' }));
+routes.get('/', async (req, res) => {
+  const user = await User.create({
+    name: 'Tiago Dias',
+    email: 'tiaaaaaaaaaaa@gmail.com',
+    password_hash: '5143ada44345',
+  });
+  return res.json(user);
+});
 
 // module.exports = routes;
 export default routes;
