@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Tiago Dias",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
   "dependencies": {
     "express": "^4.17.1"
   },
