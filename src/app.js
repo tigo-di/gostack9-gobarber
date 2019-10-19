@@ -9,39 +9,31 @@ const routes = require('./routes'); // importando as rostas de outro arquivo
    mais atual do js
 
 */
-import express from "express";
-import routes from "./routes";
+import express from 'express';
+import routes from './routes';
 
 
 class App {
+  constructor() {
+    this.server = express();
 
-    constructor() {
-
-        this.server = express();
-        
-        // necessário chamar dentro do constructor senão so métodos nunca serão chamados
-        this.middlewares();
-        this.routes();
-
-    }
-
-    middlewares() {
-
-        this.server.use(express.json());
-
-    }
-
-    routes() {
-
-        // this.server.get   .. idem forma anterior domodelo 1 
-        this.server.use(routes);
-
-    }
+    // necessário chamar dentro do constructor senão so métodos nunca serão chamados
+    this.middlewares();
+    this.routes();
+  }
 
 
+  middlewares() {
+    this.server.use(express.json());
+  }
+
+  routes() {
+    // this.server.get   .. idem forma anterior domodelo 1
+    this.server.use(routes);
+  }
 }
 
 
 // module.exports = new App().server;
 
-export default new App().server;  // com Sucrase
+export default new App().server; // com Sucrase
