@@ -2,7 +2,7 @@ const { Router } = require("express"); // importando apenas a parte de roteament
 
 const routes = new Router();
 
-routes.get('/', (res, req) => {
+routes.get('/', (req, res) => {
     return res.json({ message: "Hello World" })
 })
 
