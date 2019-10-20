@@ -34,7 +34,11 @@ class User extends Model {
       }
     }); // Hook = função do Sequelize, trechos de código que são executados de acordo com ações que acontecem em nosso model.
 
-    // return this;
+    return this;
+  }
+
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash); // true is pass bates
   }
 }
 
