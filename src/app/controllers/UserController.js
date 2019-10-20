@@ -25,11 +25,60 @@ class UserController {
   }
 
   async update(req, res) {
-    // o usuário fez login, o id está no token e passou para req
+    /*
+      Antes desse método ser executado há o
+      authMiddleware
+      que:
+      - verifica a existência de Token em req.headers.authorization;
+      - ifok: jwt.verify testa se o token é válido usando o
+      valor de authConfig.secret;
+      - iffail: fluxo encerrado, msg token inválido
+      - ifok:
+        - resultado guardado em decoded; 
+        - definido req.userId = decoded.id;
+        - fluxo segue
+    */
 
-    console.log(req.userId);
+    // console.log(req.userId);
 
-    return res.json({ ok: true });
+    //  O Token á foi verificado acima mas
+    // é preciso outras verificações:
+
+    //  dados a serem vierificados:
+    const { email, oldPassword } = req.body;
+
+    // RECUPERANDO dados do Model
+    const user = await User.findByPk(req.userId);
+
+    // EMAIL - Verificação
+    // se o usuário está atualizando o email é preciso verificar se não há outro usuário com esse email cadastrado
+    if (email !== user.email) {
+      // short syntax
+      const userExists = await User.findOne({ where: { email } });
+
+      // INTERROMPE fluxo se já existe usuário com o email informado
+      if (userExists) {
+        return res.status(400).json({ error: 'User already exists.' });
+      }
+    }
+
+    // OLDPASSWORD - Verificação
+    // Se oldPassword foi informado, quer dizer que o usuário
+    // quer atualizar o seu password
+    if (oldPassword && !(await user.checkPassword(oldPassword))) {
+      return res.status(401).json({ error: 'Passord does not match' });
+    }
+
+    // O Sequelize confere as informalções que estão no body
+    // e aplica a atualização
+    const { id, name, provider } = await user.update(req.body);
+
+    return res.json({
+      id,
+      name,
+      email,
+      provider,
+    });
   }
 }
 

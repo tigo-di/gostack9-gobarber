@@ -1,6 +1,15 @@
+// JWT - solução para sessões de API RESTFUL
 import jwt from 'jsonwebtoken';
+
+// já faz parte do node
 import { promisify } from 'util';
 
+/*
+
+    authConfig:
+    chave secreta para geração de token, data de expiração 
+
+*/
 import authConfig from '../../config/auth';
 
 export default async (req, res, next) => {
