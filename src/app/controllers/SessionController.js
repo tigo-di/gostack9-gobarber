@@ -1,10 +1,26 @@
 import jwt from 'jsonwebtoken'; // por algum motivo há preferência para importar primeiro múdulo
+import * as Yup from 'yup';
+
 import User from '../models/User';
 import authConfig from '../../config/auth';
 
 // é uma nova entidade, precisa de umnovo controle, não pode ser um método de UserController.
 class SessionController {
   async store(req, res) {
+    // Usando Yup para validar dados de entrada
+    const schema = Yup.object().shape({
+      email: Yup.string()
+        .email()
+        .required(),
+      password: Yup.string().required(),
+    });
+
+    // INTERROMPE fluxo se a validação falha
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
     const { email, password } = req.body;
 
     // verificando se o email da tentativa de autenticação existe
@@ -36,7 +52,7 @@ class SessionController {
       // dentro do primeiro paramentro do sign definimos o conteúdo do payload
       // segundo parms: texto único, seguro, que ninguém mais tenha acesso
       // third params: passamos algumas cfgs, como data de expiração
-      toke: jwt.sign({ id }, authConfig.secret, {
+      token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });
