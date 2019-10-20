@@ -8,6 +8,7 @@ import User from './app/models/User';
 
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
+import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
@@ -27,6 +28,14 @@ routes.get('/', async (req, res) => {
 
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
+
+// middeware local
+// routes.put('/users', authMiddleware, UserController.update);
+
+// middleware global, somente rotas declaras após esse ponte erão o middleware palicado
+routes.use(authMiddleware);
+
+routes.put('/users', UserController.update);
 
 // module.exports = routes;
 export default routes;

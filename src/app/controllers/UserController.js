@@ -23,6 +23,14 @@ class UserController {
       provider,
     });
   }
+
+  async update(req, res) {
+    // o usuário fez login, o id está no token e passou para req
+
+    console.log(req.userId);
+
+    return res.json({ ok: true });
+  }
 }
 
 export default new UserController(); // todo controller segue esse face
