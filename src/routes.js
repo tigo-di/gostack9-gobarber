@@ -2,6 +2,8 @@
 
 // possível com Sucrase
 import { Router } from 'express';
+import multer from 'multer';
+import multerConfig from './config/multer';
 
 // possível com Sucrase
 import User from './app/models/User';
@@ -11,6 +13,7 @@ import SessionController from './app/controllers/SessionController';
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
+const upload = multer(multerConfig);
 
 /*
 
@@ -36,6 +39,10 @@ routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
+
+routes.post('/files', upload.single('file'), (req, res) => {
+  return res.json({ ok: true });
+});
 
 // module.exports = routes;
 export default routes;
