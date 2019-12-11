@@ -5,9 +5,6 @@ import { Router } from 'express';
 import multer from 'multer';
 import multerConfig from './config/multer';
 
-// possível com Sucrase
-import User from './app/models/User';
-
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
