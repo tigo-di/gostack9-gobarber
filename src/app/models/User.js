@@ -13,7 +13,7 @@ class User extends Model {
           ser um reflexo das colunas presentes
           na tabela no banco de dados.
 
-          
+
         */
         name: Sequelize.STRING,
         email: Sequelize.STRING,
@@ -35,6 +35,10 @@ class User extends Model {
     }); // Hook = função do Sequelize, trechos de código que são executados de acordo com ações que acontecem em nosso model.
 
     return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.File, { foreignKey: 'avatar_id' });
   }
 
   checkPassword(password) {
