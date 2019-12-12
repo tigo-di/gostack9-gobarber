@@ -55,7 +55,7 @@ class UserController {
       valor de authConfig.secret;
       - iffail: fluxo encerrado, msg token inválido
       - ifok:
-        - resultado guardado em decoded; 
+        - resultado guardado em decoded;
         - definido req.userId = decoded.id;
         - fluxo segue
     */
@@ -93,7 +93,7 @@ class UserController {
 
     // EMAIL - Verificação
     // se o usuário está atualizando o email é preciso verificar se não há outro usuário com esse email cadastrado
-    if (email !== user.email) {
+    if (email && email !== user.email) {
       // short syntax
       const userExists = await User.findOne({ where: { email } });
 
