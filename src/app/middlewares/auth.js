@@ -7,7 +7,7 @@ import { promisify } from 'util';
 /*
 
     authConfig:
-    chave secreta para geração de token, data de expiração 
+    chave secreta para geração de token, data de expiração
 
 */
 import authConfig from '../../config/auth';
@@ -23,12 +23,12 @@ export default async (req, res, next) => {
   }
 
   /*
-    
+
     poderia usar a desestruturação dessa forma
     const [bearer, token] = authHeader.split(' ');
     mas é possível utilizar da forma abaixo,
-    deixando visível somente o que é útil 
-   
+    deixando visível somente o que é útil
+
    */
   const [, token] = authHeader.split(' ');
 
@@ -40,7 +40,7 @@ export default async (req, res, next) => {
     // se der certo, as informações que colocamos no payload do token
     // lá em SessionControle estarão no objeto decoded
 
-    console.log(decoded);
+    // console.log(decoded);
 
     req.userId = decoded.id;
 

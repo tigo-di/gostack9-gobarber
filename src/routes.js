@@ -36,7 +36,8 @@ routes.post('/sessions', SessionController.store);
 // middeware local
 // routes.put('/users', authMiddleware, UserController.update);
 
-// middleware global, somente rotas declaras após esse ponte erão o middleware palicado
+// middleware global
+// Somente rotas declaradas após esse ponto terão o middleware aplicado
 routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);

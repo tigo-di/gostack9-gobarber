@@ -2,7 +2,9 @@ import Sequelize, { Model } from 'sequelize';
 
 class File extends Model {
   static init(sequelize) {
-    // essa variável é passad pelo método init da classe Database em index.js
+    // método invocado em src/database/index.js (chamado por "[path]/database")
+    // através de map de vetor de models.
+
     // Initialize a model, representing a table in the DB, with attributes and options.
     super.init(
       {
