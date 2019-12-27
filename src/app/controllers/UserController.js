@@ -82,13 +82,15 @@ class UserController {
 
     // console.log(req.userId);
 
-    //  O Token á foi verificado acima mas
+    //  O Token foi verificado acima mas
     // é preciso outras verificações:
 
     //  dados a serem vierificados:
     const { email, oldPassword } = req.body;
 
     // RECUPERANDO dados do Model
+    // req.userId = decoded.id criado após verificação do token.
+    // O id foi armazenado no token após criação de sessão.
     const user = await User.findByPk(req.userId);
 
     // EMAIL - Verificação
