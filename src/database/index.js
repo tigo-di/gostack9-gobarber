@@ -1,4 +1,6 @@
 import Sequelize from 'sequelize'; // responsavel pelo conexao
+import mongoose from 'mongoose'; // responsavel pelo conexao
+
 import User from '../app/models/User';
 import File from '../app/models/File';
 import Appointment from '../app/models/Appointment';
@@ -11,6 +13,7 @@ class Database {
   constructor() {
     //
     this.init(); // faz a conexão e carrega os models
+    this.mongo();
   }
 
   init() {
@@ -20,6 +23,18 @@ class Database {
     models
       .map(model => model.init(this.connection))
       .map(model => model.associate && model.associate(this.connection.models));
+  }
+
+  mongo() {
+    // mongo cria automaticamente a base de dados
+    this.mongoConnection = mongoose.connect(
+      'mongodb://localhost:27017/gobarber',
+      {
+        useNewUrlParser: true,
+        useFindAndModify: true,
+        useUnifiedTopology: true,
+      }
+    );
   }
 }
 
