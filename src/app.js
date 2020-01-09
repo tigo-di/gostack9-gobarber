@@ -10,17 +10,25 @@ const routes = require('./routes'); // importando as rostas de outro arquivo
 
 */
 import express from 'express';
+import 'express-async-errors';
+import Youche from 'youch';
 import path from 'path';
+import * as Sentry from '@sentry/node';
+import sentryConfig from './config/sentry';
+
 import routes from './routes';
 import './database';
 
 class App {
   constructor() {
     this.server = express();
+    Sentry.init(sentryConfig);
 
-    // necessário chamar dentro do constructor senão so métodos nunca serão chamados
+    this.server.use(Sentry.Handlers.requestHandler());
     this.middlewares();
     this.routes();
+    this.server.use(Sentry.Handlers.errorHandler());
+    this.exceptionHandler();
   }
 
   middlewares() {
@@ -35,6 +43,14 @@ class App {
   routes() {
     // this.server.get   .. idem forma anterior domodelo 1
     this.server.use(routes);
+  }
+
+  exceptionHandler() {
+    this.server.use(async (err, req, res, next) => {
+      const errors = await new Youche(err, req).toJSON();
+
+      return res.status(500).json(errors);
+    });
   }
 }
 
